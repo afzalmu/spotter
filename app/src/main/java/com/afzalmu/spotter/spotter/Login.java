@@ -1,6 +1,11 @@
 package com.afzalmu.spotter.spotter;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +34,14 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if(SharedPrefs.getIsLoggedIn().equalsIgnoreCase("yes")){
+            startActivity(new Intent(Login.this,MapsActivity.class));
+            finish();
+        }
+        getPermissions();
+
+
         Button login = (Button) findViewById(R.id.btn_login);
         Button register = (Button) findViewById(R.id.btn_register);
 
@@ -79,9 +92,6 @@ public class Login extends AppCompatActivity {
                 if (username_edit.getText().toString().length() == 0) {
                     username_edit.setError("Cannot be null");
 
-                } else if (username_edit.getText().toString().length() == 0) {
-                    username_edit.setError("Cannot be null");
-
                 } else {
                     username = username_edit.getText().toString();
                     password = password_edit.getText().toString();
@@ -95,8 +105,10 @@ public class Login extends AppCompatActivity {
                                         if(userDetails!=null){
                                             if(userDetails.getPassword().equals(password)){
                                                 Toast.makeText(Login.this, "Signed in", Toast.LENGTH_SHORT).show();
-
-                                                Intent i=new Intent(Login.this,ListOfUsers.class);
+                                                SharedPrefs.setIsLoggedIn("yes");
+                                                SharedPrefs.setUsername(userDetails.getUsername());
+                                                SharedPrefs.setPhone(userDetails.getMobile());
+                                                Intent i=new Intent(Login.this,MapsActivity.class);
                                                 startActivity(i);
                                                 finish();
                                             }else{
@@ -128,5 +140,25 @@ public class Login extends AppCompatActivity {
             }
         });
 
+    }
+    private void getPermissions() {
+        int PERMISSION_ALL = 1;
+        String[] PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION
+        };
+
+        if (!hasPermissions(this, PERMISSIONS)) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+        }
+    }
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

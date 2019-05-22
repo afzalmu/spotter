@@ -22,7 +22,7 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Button register = (Button) findViewById(R.id.btn_register);
+        final Button register = (Button) findViewById(R.id.btn_register);
         Button Login = (Button) findViewById(R.id.btn_login);
 
         final EditText username_edit = (EditText) findViewById(R.id.username);
@@ -40,6 +40,7 @@ public class Register extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +72,8 @@ public class Register extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(Register.this, "Failed " + e, Toast.LENGTH_SHORT).show();
+
+
                         }
                     });
 
