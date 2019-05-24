@@ -3,6 +3,7 @@ package com.afzalmu.spotter.spotter;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -27,7 +28,7 @@ import java.util.Map;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    Button request, send;
+    Button request, send,logout;
 
 
     @Override
@@ -37,6 +38,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         request = findViewById(R.id.request);
         send = findViewById(R.id.send);
+        logout = findViewById(R.id.logout);
         getPermissions();
 
         send.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +56,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 startActivity(new Intent(MapsActivity.this, ListOfUsers.class));
 
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences preferences =getSharedPreferences("user",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.commit();
+                Intent i =new Intent(getApplicationContext(),Login.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                finish();
             }
         });
 

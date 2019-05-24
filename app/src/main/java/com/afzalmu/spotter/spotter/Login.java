@@ -97,6 +97,7 @@ public class Login extends AppCompatActivity {
                     username = username_edit.getText().toString();
                     password = password_edit.getText().toString();
 
+
                     if(usernameList.contains(username)){
                             mDatabase.child(username).addValueEventListener(new ValueEventListener() {
                                 @Override
@@ -109,6 +110,7 @@ public class Login extends AppCompatActivity {
                                                 SharedPrefs.setIsLoggedIn("yes");
                                                 SharedPrefs.setUsername(userDetails.getUsername());
                                                 SharedPrefs.setPhone(userDetails.getMobile());
+
                                                 Intent i=new Intent(Login.this,MapsActivity.class);
                                                 startActivity(i);
                                                 finish();

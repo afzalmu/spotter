@@ -30,10 +30,15 @@ public class UserListAdapter  extends RecyclerView.Adapter<UserListAdapter.ViewH
         return viewHolder;
     }
 
+
+//    requesting and sending location via sms message
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
          final UserDetails userDetails=itemList.get(position);
         holder.name.setText(userDetails.getUsername());
+
+
+
 
         holder.request.setOnClickListener(new View.OnClickListener() {
             @Override

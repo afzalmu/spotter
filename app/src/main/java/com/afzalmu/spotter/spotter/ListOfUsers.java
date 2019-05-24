@@ -48,6 +48,9 @@ public class ListOfUsers extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
 
+
+//        setting values of adapter in recycler view
+
         adapter=new UserListAdapter(this, userList);
         recyclerView.setAdapter(adapter);
 
@@ -55,7 +58,7 @@ public class ListOfUsers extends AppCompatActivity {
 
 
         /*
-        TO get data
+        TO get data in adapter from firebase database
          */
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
@@ -98,6 +101,9 @@ public class ListOfUsers extends AppCompatActivity {
 
 
     }
+
+//    Getting SMS permission to send it
+
     private void getPermissions() {
         int PERMISSION_ALL = 1;
         String[] PERMISSIONS = {Manifest.permission.SEND_SMS
