@@ -48,6 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Intent i=new Intent(MapsActivity.this,GPSTrackerActivity.class);
         startActivityForResult(i,1);
+
         request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +65,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
+//    Current Location on Map
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -82,13 +85,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+
+
     private void setMap(double latitude, double longitude) {
         LatLng sydney = new LatLng(latitude,longitude);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(sydney).title("My Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
 
     }
+
+
+//    Opening Dialog to get Location Permission
 
     private void getPermissions() {
         int PERMISSION_ALL = 1;
@@ -120,6 +128,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+//    Showing MAP ON screen
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;

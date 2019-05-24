@@ -21,6 +21,9 @@ import com.google.android.gms.location.LocationServices;
 
 
 public class GPSTrackerActivity extends AppCompatActivity implements
+
+//        Google LOCATION service used
+
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient mGoogleApiClient;
@@ -83,7 +86,7 @@ public class GPSTrackerActivity extends AppCompatActivity implements
                     .build();
         }
     }
-
+// LOCATION REQUEST CREATING
     private void createLocationRequest() {
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -108,7 +111,7 @@ public class GPSTrackerActivity extends AppCompatActivity implements
 
     }
 
-
+// LAST LOCATION lat long getting
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {

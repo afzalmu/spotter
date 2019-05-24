@@ -24,8 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class Login extends AppCompatActivity {
-    DatabaseReference mDatabase;
 
+
+    DatabaseReference mDatabase;
 
     ArrayList<String> usernameList;
 

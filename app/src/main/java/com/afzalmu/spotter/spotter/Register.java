@@ -22,7 +22,7 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        final Button register = (Button) findViewById(R.id.btn_register);
+        Button register = (Button) findViewById(R.id.btn_register);
         Button Login = (Button) findViewById(R.id.btn_login);
 
         final EditText username_edit = (EditText) findViewById(R.id.username);
@@ -30,7 +30,10 @@ public class Register extends AppCompatActivity {
         final EditText email_edit = (EditText) findViewById(R.id.email);
         final EditText mobile_edit = (EditText) findViewById(R.id.mobile);
 
+//       database link path
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,6 +47,7 @@ public class Register extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String username, email, password, phone;
                 if (username_edit.getText().toString().length() == 0) {
                     username_edit.setError("Cannot be null");
@@ -62,7 +66,10 @@ public class Register extends AppCompatActivity {
                     username = username.toLowerCase();
                     username = username.trim();
 
-                    mDatabase.child("" + username).setValue(new UserDetails(username, email, password, phone))
+
+//                Setting value of given variables in firebasedatabase through UserDetails Class
+                   UserDetails userObject= new UserDetails(username, email, password, phone);
+                    mDatabase.child(username).setValue(userObject)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
